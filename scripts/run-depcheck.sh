@@ -21,7 +21,7 @@ failed="false"
 tempfile_jaeger="${tempdir}/DepcheckrcJaegerUI.json"
 node scripts/generateDepcheckrcJaegerUI.js "${tempfile_jaeger}"
 ignore_jaeger="packages/jaeger-ui/vite.config.mts"
-if runDepcheck packages/jaeger-ui "${tempfile_jaeger}" "${ignore_pattern_jaeger}"; then
+if runDepcheck packages/jaeger-ui "${tempfile_jaeger}" "${ignore_jaeger}"; then
   failed="true"
 fi
 
