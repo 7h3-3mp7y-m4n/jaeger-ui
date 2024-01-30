@@ -10,6 +10,7 @@ trap 'cleanup_tempdir' EXIT
 runDepcheck() {
   local dir="$1"
   local cfg="$2"
+  local ignore="$3"
   echo "Checking ${dir}"
   depcheck "${dir}" --config "${cfg}" | sed 's/^\*/⛔/' | sed 's/^/    /g'
   return $((! ${PIPESTATUS[0]}))
@@ -19,7 +20,8 @@ failed="false"
 
 tempfile_jaeger="${tempdir}/DepcheckrcJaegerUI.json"
 node scripts/generateDepcheckrcJaegerUI.js "${tempfile_jaeger}"
-if runDepcheck packages/jaeger-ui "${tempfile_jaeger}"; then
+ignore_jaeger="packages/jaeger-ui/vite.config.mts"
+if runDepcheck packages/jaeger-ui "${tempfile_jaeger}" "${ignore_pattern_jaeger}"; then
   failed="true"
 fi
 
